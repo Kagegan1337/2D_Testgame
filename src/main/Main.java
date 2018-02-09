@@ -40,7 +40,7 @@ public class Main extends Application {
 		System.out.println(main);
 		System.out.println(back);
 		
-		back.setImage("pictures/back.jpg");
+		back.setImage("pictures/background.jpg");
 		back.setPosi(0, 0);
 		main.setImage("pictures/hinderniss.jpg");
 		main.setPosi(0, 256);
@@ -85,8 +85,8 @@ public class Main extends Application {
 					if(input.contains("LEFT"))
 						main.addVelo(-50, 0);
 					if(input.contains("RIGHT"))
-						main.addVelo(50, 0);
-					if(input.contains("UP"))
+						main.addVelo(25, 0);
+					if(input.contains("UP")) 
 						main.addVelo(0, -50);
 					if(input.contains("DOWN"))
 						main.addVelo(0, 50);
@@ -95,17 +95,21 @@ public class Main extends Application {
 						main.setPosi(512, main.getPosiY());
 					}
 					if(main.getPosiX()>400) {
-						back.addVelo(-100, 0);
+						back.addVelo(-25, 0);
 						main.setPosi(400, main.getPosiY());
 					}
 					
 					if(main.getPosiY()<0) {
 						main.setPosi(main.getPosiX(), 512);
 					}
-					if(main.getPosiY()>512) {
+					if(back.getPosiY()>512) {
 						main.setPosi(main.getPosiX(),0);
 					}
-				
+					if(back.getPosiX() < -500) {
+						back.setPosi(0,0);
+					}
+					
+					main.setVelo(256, 0);
 					
 					back.update(elapsedTime);
 					main.update(elapsedTime);
@@ -113,9 +117,17 @@ public class Main extends Application {
 					main.render(gc);
 					gc.setFill(Color.YELLOW);
 					gc.fillText(main.toString(), 25, 25);
+					gc.setFill(Color.YELLOW);
+					gc.fillText(back.toString(), 50, 50);
 				}
 			}.start();
 		theStage.show();
+	}
+	
+	private static void jump() {
+			//only when char at 256
+			//max height 400
+			//fall down
 	}
 
 }
